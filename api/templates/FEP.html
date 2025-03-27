@@ -13,7 +13,6 @@
 <input type="submit">
 </form>
 <br>
-<button onclick="__testConnection__()">Testing POST connection</button>
 <p id="constat">There is an LoadingError</p>
 </body>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -23,7 +22,8 @@ const formFilledOut = document.getElementById("formFilledOut")
 const constat = document.getElementById("constat")
 const password = document.getElementById("pass")
 var timeoutAmount = 0
-constat.innerHTML = "{{page_status}}";
+constat.innerHTML = "Not Connected";
+window.onload(__testConnection__())
 function __testConnection__(){
     if(constat.innerHTML!="trying to connect" & constat.innerHTML!="Connected"){
         if(constat.innerHTML=="Not Connected"){constat.innerHTML = "trying to connect";}
@@ -58,12 +58,12 @@ function authReq(){
         data: {"name":username,"password":password,"debug":DBM},
         success: function(returned_values){
             form.style.display = "none";
-            formFilledOut.style.display="block";
+            formFilledOut.style.display="contents";
             formStatus = returned_values.form_status
             isdb = returned_values.ISDB
             formFilledOut.innerHTML=formStatus;
             if(isdb == true){
-                alert("...")
+                constat.innerHTML = "Connection terminated as part of a succesfull form."
             }
         },
     })

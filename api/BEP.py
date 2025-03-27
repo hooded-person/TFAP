@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request
+from waitress import serve
 
 app = Flask(__name__)
 static_DB = {"Jente":"1234","Etnej":"4321"}
 
 @app.route("/")
 def index():
-    page_status = "Not Connected"
-    return render_template("FEP.html", page_status = page_status)
+    return render_template("FEP.html")
 
 @app.route("/conStat", methods=["POST"])
 def conStat():
@@ -34,8 +34,17 @@ def infoHandler():
         return return_data
 
 if __name__ == '__main__':
-    app.run( 
-        host="codespaces-d57c39",
-        port=5001, 
-        debug=True
-        )
+    devMode = False
+    if devMode:
+        print("devMode is enabled")
+        app.run( 
+            host="codespaces-d57c39",
+            port=5001, 
+            debug=True,
+            )
+    else:
+        serve(
+            app,
+            host="codespaces-d57c39",
+            port=5001,
+            )
