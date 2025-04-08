@@ -42,9 +42,9 @@ function testConnection(){
         }, 1000);
         $.ajax({
             type: "POST",
-            url: "{{url_for('conStat')}}",
+            url: "{{url_for('connectionStatus')}}",
             data: {},
-            success: function(statusText){constat.innerHTML = statusText;},
+            success: function(statusText){connectionStatusEl.innerHTML = statusText;},
         })
     }
 }
