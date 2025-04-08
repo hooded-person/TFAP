@@ -21,7 +21,7 @@ const authForm = document.getElementById("authForm")
 const formStatusEl = document.getElementById("formStatus")
 const connectionStatusEl = document.getElementById("connectionStatus")
 const password = document.getElementById("pass")
-var timeoutAmount = 0
+let timeoutAmount = 0
 connectionStatusEl.innerHTML = "Not Connected";
 window.onload(testConnection())
 function testConnection(){
@@ -49,8 +49,8 @@ function testConnection(){
     }
 }
 function authReq(){
-    var username = document.getElementById("username").value
-    var password = document.getElementById("password").value
+    let username = document.getElementById("username").value
+    let password = document.getElementById("password").value
     const DBM = true
     $.ajax({
         type: "POST",
