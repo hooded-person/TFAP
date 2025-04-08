@@ -9,7 +9,7 @@ def index():
     return render_template("FEP.html")
 
 @app.route("/connectionStatus", methods=["POST"])
-def conStat():
+def connectionStatus():
     page_status = "Connected"
     return page_status
 
