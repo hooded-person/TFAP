@@ -5,7 +5,7 @@
 </head>
 <body>
 <p id="formFilledOut" style="display:none">Please wait while your log in information is being handled.</p>
-<form id="Form" type="POST" style="display:contents;" onsubmit="authReq();return false;">
+<form id="form" type="POST" style="display:contents;" onsubmit="authReq();return false;">
 <input type="text" required id="Uname">
 <br>
 <input id="pass" type="password" required>
@@ -17,7 +17,7 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script>
-const form = document.getElementById("Form")
+const form = document.getElementById("form")
 const formFilledOut = document.getElementById("formFilledOut")
 const constat = document.getElementById("constat")
 const password = document.getElementById("pass")
