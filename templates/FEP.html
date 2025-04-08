@@ -23,8 +23,8 @@ const constat = document.getElementById("constat")
 const password = document.getElementById("pass")
 var timeoutAmount = 0
 constat.innerHTML = "Not Connected";
-window.onload(__testConnection__())
-function __testConnection__(){
+window.onload(testConnection())
+function testConnection(){
     if(constat.innerHTML!="trying to connect" & constat.innerHTML!="Connected"){
         if(constat.innerHTML=="Not Connected"){constat.innerHTML = "trying to connect";}
         ConTimeout = setTimeout(function(){
@@ -36,7 +36,7 @@ function __testConnection__(){
                     constat.innerHTML = "Connection Failed";
                 }
                 else{
-                    __testConnection__();
+                    testConnection();
                 }
             }
         }, 1000);
