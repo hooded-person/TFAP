@@ -1,0 +1,1 @@
+This project is just for making a simple auth tool to learn different nuances when it comes to making a "secure" environment. This will be used as my authorization tool in later projects. (if neccisary)
