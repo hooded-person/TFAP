@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Full Test</title> <!--This allows for testing of any part which can be accessed by an authorized frontend request-->
+</head>
+<body>
+
+  <h2>Create Registry (New Database)</h2>
+  <form id="registryForm" onsubmit="createRegistry(); return false;">
+    <label>App Name:</label><br>
+    <input id="appName" type="text" required><br>
+
+    <label>Allowed origins:</label><br>
+    <input id="allowedOrigins" type="text" required><br><br>
+
+    <input type="submit" value="Create Registry">
+  </form>
+
+  <hr>
+
+  <h2>User Actions</h2>
+  <form id="userForm" onsubmit="sendUserRequest(); return false;">
+    <label>Target Database ID:</label><br>
+    <input id="dbId" type="text" required><br>
+
+    <label>Current Username (for PATCH/DELETE):</label><br>
+    <input id="currentName" type="text"><br>
+
+    <label>Username:</label><br>
+    <input id="username" type="text"><br>
+
+    <label>Email:</label><br>
+    <input id="email" type="email"><br>
+
+    <label>Password:</label><br>
+    <input id="password" type="password"><br><br>
+
+    <label>Action:</label><br>
+    <input type="radio" id="GET" name="request_type" value="GET" required>
+    <label for="GET">GET</label><br>
+
+    <input type="radio" id="POST" name="request_type" value="POST" required>
+    <label for="POST">POST</label><br>
+
+    <input type="radio" id="PATCH" name="request_type" value="PATCH" required>
+    <label for="PATCH">PATCH</label><br>
+
+    <input type="radio" id="DELETE" name="request_type" value="DELETE" required>
+    <label for="DELETE">DELETE</label><br><br>
+
+    <input type="submit" value="Submit User Request">
+  </form>
+
+</body>
+
+<script>
+const apiBase = "https://didactic-space-palm-tree-v6gw94rjqw6p3wp5v-5000.app.github.dev/";
+
+function createRegistry() {
+  const appName = document.getElementById("appName").value;
+  const allowedOrigins = document.getElementById("allowedOrigins").value;
+  fetch(apiBase + "api/registry/", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({app_name:appName,allowed_origins:allowedOrigins})
+  })
+  .then(res => res.json())
+  .then(data => alert("Registry Created:\n" + JSON.stringify(data)))
+  .catch(err => alert("Error creating registry:\n" + err));
+}
+
+function sendUserRequest() {
+  const dbId = document.getElementById("dbId").value;
+  const currentName = document.getElementById("currentName").value;
+  const username = document.getElementById("username").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const requestType = document.querySelector('input[name="request_type"]:checked').value;
+
+  const usersBase = apiBase + "api/" + dbId + "/users/";
+  const userData = { username: username, email: email, password: password };
+
+  if (requestType === "GET") {
+    fetch(usersBase + "username/" + currentName, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    })
+    .then(res => res.json())
+    .then(data => alert("GET Result:\n" + JSON.stringify(data)))
+    .catch(err => alert("GET Error:\n" + err));
+  }
+
+  if (requestType === "POST") {
+    fetch(usersBase, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userData)
+    })
+    .then(res => res.json())
+    .then(data => alert("User Created:\n" + JSON.stringify(data)))
+    .catch(err => alert("POST Error:\n" + err));
+  }
+
+  if (requestType === "PATCH") {
+    fetch(usersBase + "username/" + currentName, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userData)
+    })
+    .then(res => res.json())
+    .then(data => alert("User Updated:\n" + JSON.stringify(data)))
+    .catch(err => alert("PATCH Error:\n" + err));
+  }
+
+  if (requestType === "DELETE") {
+    fetch(usersBase + "username/" + currentName, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" }
+    })
+    .then(res => res.json())
+    .then(data => alert("User Deleted:\n" + JSON.stringify(data)))
+    .catch(err => alert("DELETE Error:\n" + err));
+  }
+}
+</script>
+</html>
