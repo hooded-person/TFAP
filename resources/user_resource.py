@@ -38,7 +38,7 @@ class UserListResource(Resource): #allows all CRUD operations on all of the user
         allowed_origins = [origin.strip() for origin in allowed_origins]
         origin = request.headers.get("Origin")
         if origin not in allowed_origins:
-            abort(403, description="Unauthorized Origin.")
+            abort(403, description="Forbidden Origin.")
         args = user_args.parse_args()
         new_user = create_user(
             db_id,
@@ -63,7 +63,7 @@ class UserAuthenticateResource(Resource): #authenticates a user against the data
         allowed_origins = [origin.strip() for origin in allowed_origins]
         origin = request.headers.get("Origin")
         if origin not in allowed_origins:
-            abort(403, description="Unauthorized Origin.")
+            abort(403, description="Forbidden Origin.")
         args = user_auth_args.parse_args()
         password_hash = generate_password_hash(args["password"])
         id_method = "username"
@@ -92,5 +92,5 @@ class UserAuthenticateResource(Resource): #authenticates a user against the data
             if check_for_dupes not in allowed_origins:
                 allowed_origins.append(check_for_dupes)
         origin = request.headers.get("Origin")
-        if origin not in allowed_origins:
-            abort(403, description="Unauthorized Origin.")"""
+        if origin not in allowed_originst:
+            abort(403, description="Forbidden Origin.")"""

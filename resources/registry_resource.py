@@ -32,7 +32,7 @@ class RegistryResource(Resource): #queries all registry entries and allows creat
     def post(self):
         origin = request.headers.get("Origin")
         if origin != ALLOWED_REGISTRY_CREATORS:
-            abort(403, description="Unauthorized Origin.")
+            abort(403, description="Forbidden Origin.")
         args = registry_args.parse_args()
         app_name = args["app_name"]
         allowed_origins = [args["allowed_origins"], ""]
