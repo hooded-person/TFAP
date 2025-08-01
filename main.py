@@ -24,7 +24,7 @@ ALLOWED_REGISTRY_CREATORS = os.getenv("ALLOWED_REGISTRY_CREATORS")
 DB_REGISTRY = os.getenv("DB_REGISTRY")
 
 instance_path = os.path.join(os.getcwd(), "instance")
-db_path = os.path.join(instance_path, os.getenv("DB_REGISTRY"))
+db_path = os.path.join(instance_path, DB_REGISTRY)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
